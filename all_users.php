@@ -26,13 +26,30 @@
 			}catch(PDOException$e){
 				throw new PDOException($e->getMessage(),(int)$e->getCode());
 			}
-			$lettre = 'e';
-			$status_id = '2';
+
+			$lettre = '%';
+			$status_id = '%';
+
+			if(isset($_POST['lettre'])){
+				$lettre = $_POST['lettre'];
+			}
+			if(isset($_POST['status_id'])){
+				$status_id = $_POST['status_id'];
+			}
+
+			echo "<form method=\"post\">";
+			echo "<input id=\"lettre\" type=\"texte\"></input>";
+			echo "<select id=\"status_id\">";
+			echo "<option value=\"1\">Active account</option>";
+			echo "<option value=\"2\">Waiting for account validation</option></select>";
+			echo "<input type=\"submit\" name=\"validation\" value=\"rechercher\"/>";
+			echo "</form>";
+
 			$stmt = $pdo->query("SELECT users.id,username,email,name 
 								 FROM users 
 								 JOIN status 
 								 ON users.status_id = status.id 
-								 WHERE status_id = '$status_id'
+								 AND status_id LIKE '$status_id'
 								 AND username LIKE '$lettre%' 
 								 ORDER BY username");
 			echo "<table border=\"1px\">";
