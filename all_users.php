@@ -26,8 +26,17 @@
 			}catch(PDOException$e){
 				throw new PDOException($e->getMessage(),(int)$e->getCode());
 			}
-			$stmt = $pdo->query('SELECT users.id,username,email,name FROM users JOIN status ON users.status_id = status.id ORDER BY username');
+			$lettre = 'e';
+			$status_id = '2';
+			$stmt = $pdo->query("SELECT users.id,username,email,name 
+								 FROM users 
+								 JOIN status 
+								 ON users.status_id = status.id 
+								 WHERE status_id = '$status_id'
+								 AND username LIKE '$lettre%' 
+								 ORDER BY username");
 			echo "<table border=\"1px\">";
+			echo "<tr><td>id</td><td>username</td><td>email</td><td>name</td></tr>";
 			while($row = $stmt->fetch()){
 				echo "<tr>";
 				echo "<td>".$row['id']."</td>";
