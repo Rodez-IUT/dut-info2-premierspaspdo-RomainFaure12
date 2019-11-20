@@ -1,0 +1,1 @@
+le probleme de "a%' or 1 = 1 ; --" vient du ' ainsi que du ; qui sont envoyés
