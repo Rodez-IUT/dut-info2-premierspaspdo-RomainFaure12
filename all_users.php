@@ -26,7 +26,6 @@
 			}catch(PDOException$e){
 				throw new PDOException($e->getMessage(),(int)$e->getCode());
 			}
-
 		?>
 
 		<form action="all_users.php" method="post">
@@ -43,13 +42,16 @@
 				$status_id = $_POST['status_id'];
 				$lettre = $_POST['lettre'];
 
-				$stmt = $pdo->query("SELECT users.id,username,email,name 
+				$stmt = $pdo->prepare("SELECT users.id,username,email,name 
 								 FROM users 
 								 JOIN status 
 								 ON users.status_id = status.id 
-								 AND status_id = $status_id
-								 AND username LIKE '$lettre%' 
+								 AND status_id = :status_id
+								 AND username LIKE :username
 								 ORDER BY username");
+				$stmt->bindValue(':status_id', $status_id, PDO::PARAM_INT);
+				$stmt->bindValue(':username', $lettre.'%', PDO::PARAM_STR);
+				$stmt->execute();
 
 			}else{
 				$stmt = $pdo->query("SELECT users.id,username,email,name 
