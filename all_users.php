@@ -32,7 +32,8 @@
 			<input id="lettre" name="lettre" type="texte"></input>
 			<select id="status_id" name="status_id">
 			<option value="2">Active account</option>
-			<option value="1">Waiting for account validation</option></select>
+			<option value="1">Waiting for account validation</option>
+			<option value="3">Waiting for account deletion</option></select>
 			<input type="submit" name="validation" value="rechercher"/>
 		</form>
 
@@ -49,7 +50,7 @@
 								 AND status_id = :status_id
 								 AND username LIKE :username
 								 ORDER BY username");
-				
+
 				$stmt->bindValue(':status_id', $status_id, PDO::PARAM_INT);
 				$stmt->bindValue(':username', $lettre.'%', PDO::PARAM_STR);
 				$stmt->execute();
