@@ -70,6 +70,9 @@
 				echo "<td>".$row['username']."</td>";
 				echo "<td>".$row['email']."</td>";
 				echo "<td>".$row['name']."</td>";
+				if($row['name']!="Waiting for account deletion"){
+					echo "<td><a href=\"all_users.php?status=3&amp;id=".$row['id']."&amp;action=AskDeletion\">Ask deletion</a></td>";
+				}
 				echo "</tr>";
 			}
 			echo "</table>";
