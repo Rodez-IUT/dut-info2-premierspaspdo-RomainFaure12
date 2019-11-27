@@ -49,6 +49,7 @@
 								 AND status_id = :status_id
 								 AND username LIKE :username
 								 ORDER BY username");
+				
 				$stmt->bindValue(':status_id', $status_id, PDO::PARAM_INT);
 				$stmt->bindValue(':username', $lettre.'%', PDO::PARAM_STR);
 				$stmt->execute();
